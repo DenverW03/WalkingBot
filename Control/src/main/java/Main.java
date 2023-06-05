@@ -1,3 +1,4 @@
+package src.main.java;
 import com.fazecast.jSerialComm.SerialPort;
 import javax.swing.*;
 import java.util.*;
@@ -19,6 +20,7 @@ public class Main{
         cw = new ControlWindow();
         frame.add(cw);
         frame.setVisible(true);
+        frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // v-- important so that serial port is not blocked for other processes
         frame.addWindowListener(new java.awt.event.WindowAdapter() {

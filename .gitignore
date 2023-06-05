@@ -25,3 +25,4 @@ replay_pid*
 
 # Unnecessary
 .DS_Store
+Control/target/
