@@ -1,20 +1,32 @@
-package src.main.java;
 import com.fazecast.jSerialComm.SerialPort;
 import javax.swing.*;
 import java.util.*;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 public class Main{
+    private static JFrame frame;
+    private static ControlWindow cw;
     public static void main(String[] args){
-        // manually setting just for testing
-        SerialPort serialPort = SerialPort.getCommPort("cu.usbmodem1112101");
+        // v-- manually setting just for testing
+        /*SerialPort serialPort = SerialPort.getCommPort("cu.usbmodem1112101");
         serialPort.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         serialPort.openPort();
-        try{Thread.sleep(3000);}catch(Exception e){System.out.println(e);};
-        System.out.println("Starting Mapper");
-        sendStartMessage(serialPort);
-        serialPort.closePort();
+        try{Thread.sleep(3000);}catch(Exception e){System.out.println(e);};*/
+        // send start message to microcontroller
+        //sendStartMessage(serialPort);
+        frame = new JFrame("Controller");
+        cw = new ControlWindow();
+        frame.add(cw);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // v-- important so that serial port is not blocked for other processes
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                //serialPort.closePort();
+            }
+        });
     }
 
     /**
