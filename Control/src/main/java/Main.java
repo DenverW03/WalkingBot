@@ -9,15 +9,16 @@ public class Main{
     private static ControlWindow cw;
     public static void main(String[] args){
         // v-- manually setting just for testing
-        /*SerialPort serialPort = SerialPort.getCommPort("cu.usbmodem1112101");
+        SerialPort serialPort = SerialPort.getCommPort("cu.usbmodem1201");
         serialPort.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         serialPort.openPort();
-        try{Thread.sleep(3000);}catch(Exception e){System.out.println(e);};*/
+        try{Thread.sleep(3000);}catch(Exception e){System.out.println(e);};
         // send start message to microcontroller
-        //sendStartMessage(serialPort);
+        sendStartMessage(serialPort);
+        // initialising window
         frame = new JFrame("Controller");
-        cw = new ControlWindow();
+        cw = new ControlWindow(serialPort);
         frame.add(cw);
         frame.setVisible(true);
         frame.pack();

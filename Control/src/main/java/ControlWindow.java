@@ -2,12 +2,16 @@ package src.main.java;
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
-
+import com.fazecast.jSerialComm.SerialPort;
+import java.nio.charset.StandardCharsets;
+import java.io.*;
 import java.awt.*;
 public class ControlWindow extends JPanel{
     private JSlider[] sliders;
     private JLabel[] sliderLabels;
-    public ControlWindow(){
+    private SerialPort serialPort;
+    public ControlWindow(SerialPort serialPort){
+        this.serialPort = serialPort;
         sliders = new JSlider[2]; // only 2 servos connected to begin with
         sliderLabels = new JLabel[2];
         setBackground(Color.CYAN);
@@ -30,9 +34,11 @@ public class ControlWindow extends JPanel{
                         switch (source.getName()) {
                             case "tendon":
                                 sliderLabels[0].setText("tendon: " + Integer.toString(value));
+                                moveServo("tendon", value);
                                 break;
                             case "ankle":
                                 sliderLabels[1].setText("ankle: " + Integer.toString(value));
+                                moveServo("ankle", value);
                                 break;
                             // Add more cases for additional sliders if needed
                         }
@@ -41,5 +47,15 @@ public class ControlWindow extends JPanel{
             });
             this.add(sliders[i]);
         }
+    }
+
+    public void moveServo(String name, int angle){
+        try{
+            String msg = name + ":" + Integer.toString(angle);
+            byte[] byteMsg = msg.getBytes(StandardCharsets.US_ASCII);
+            OutputStream outputStream = serialPort.getOutputStream();
+            outputStream.write(byteMsg);
+        }
+        catch(Exception e){ System.out.println(e); }
     }
 }
