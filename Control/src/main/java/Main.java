@@ -9,7 +9,8 @@ public class Main{
     private static ControlWindow cw;
     public static void main(String[] args){
         // v-- manually setting just for testing
-        SerialPort serialPort = SerialPort.getCommPort("cu.usbmodem1201");
+        Scanner scanner = new Scanner(System.in);
+        SerialPort serialPort = SerialPort.getCommPort(scanner.nextLine());
         serialPort.setComPortParameters(9600, 8, 1, SerialPort.NO_PARITY);
         serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, 0, 0);
         serialPort.openPort();

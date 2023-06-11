@@ -12,16 +12,16 @@ public class ControlWindow extends JPanel{
     private SerialPort serialPort;
     public ControlWindow(SerialPort serialPort){
         this.serialPort = serialPort;
-        sliders = new JSlider[2]; // only 2 servos connected to begin with
-        sliderLabels = new JLabel[2];
+        sliders = new JSlider[3]; // only 2 servos connected to begin with
+        sliderLabels = new JLabel[3];
         setBackground(Color.CYAN);
         setPreferredSize(new Dimension(500, 500));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // create a name array for the sliders
-        String[] names = {"tendon", "ankle"};
+        String[] names = {"tendon", "ankle", "knee"};
         // setting up the sliders
         for(int i=0; i<sliders.length; i++){
-            sliders[i] = new JSlider(0, 180, 0);
+            sliders[i] = new JSlider(0, 180, 90);
             sliders[i].setName(names[i]);
             sliderLabels[i] = new JLabel(sliders[i].getName() + ": " + "0");
             this.add(sliderLabels[i]);
@@ -40,13 +40,21 @@ public class ControlWindow extends JPanel{
                                 sliderLabels[1].setText("ankle: " + Integer.toString(value));
                                 moveServo("ankle", value);
                                 break;
-                            // Add more cases for additional sliders if needed
+                            case "knee":
+                                sliderLabels[2].setText("knee: " + Integer.toString(value));
+                                moveServo("knee", value);
+                                break;
+                            // Add more cases for additional servo sliders
                         }
                     }
                 }
             });
             this.add(sliders[i]);
         }
+        // initial positions
+        moveServo("tendon", 27);
+        moveServo("ankle", 113);
+        moveServo("knee", 54);
     }
 
     public void moveServo(String name, int angle){
