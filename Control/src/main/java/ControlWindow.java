@@ -19,11 +19,12 @@ public class ControlWindow extends JPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // create a name array for the sliders
         String[] names = {"tendon", "ankle", "knee"};
+        int[] startingValues = {27, 113, 54};
         // setting up the sliders
         for(int i=0; i<sliders.length; i++){
-            sliders[i] = new JSlider(0, 180, 90);
+            sliders[i] = new JSlider(0, 180, startingValues[i]);
             sliders[i].setName(names[i]);
-            sliderLabels[i] = new JLabel(sliders[i].getName() + ": " + "0");
+            sliderLabels[i] = new JLabel(sliders[i].getName() + ": " + startingValues[i]);
             this.add(sliderLabels[i]);
             sliders[i].addChangeListener(new ChangeListener() {
                 public void stateChanged(ChangeEvent e){
@@ -51,10 +52,6 @@ public class ControlWindow extends JPanel{
             });
             this.add(sliders[i]);
         }
-        // initial positions
-        moveServo("tendon", 27);
-        moveServo("ankle", 113);
-        moveServo("knee", 54);
     }
 
     public void moveServo(String name, int angle){
