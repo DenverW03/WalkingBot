@@ -12,14 +12,14 @@ public class ControlWindow extends JPanel{
     private SerialPort serialPort;
     public ControlWindow(SerialPort serialPort){
         this.serialPort = serialPort;
-        sliders = new JSlider[3]; // only 2 servos connected to begin with
-        sliderLabels = new JLabel[3];
+        sliders = new JSlider[2]; // only 2 servos connected to begin with
+        sliderLabels = new JLabel[2];
         setBackground(Color.CYAN);
         setPreferredSize(new Dimension(500, 500));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // create a name array for the sliders
-        String[] names = {"tendon", "ankle", "knee"};
-        int[] startingValues = {27, 113, 54};
+        String[] names = {"tendon", "ankle"};
+        int[] startingValues = {90, 60};
         // setting up the sliders
         for(int i=0; i<sliders.length; i++){
             sliders[i] = new JSlider(0, 180, startingValues[i]);
@@ -40,10 +40,6 @@ public class ControlWindow extends JPanel{
                             case "ankle":
                                 sliderLabels[1].setText("ankle: " + Integer.toString(value));
                                 moveServo("ankle", value);
-                                break;
-                            case "knee":
-                                sliderLabels[2].setText("knee: " + Integer.toString(value));
-                                moveServo("knee", value);
                                 break;
                             // Add more cases for additional servo sliders
                         }
