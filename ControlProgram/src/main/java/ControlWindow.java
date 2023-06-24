@@ -19,7 +19,7 @@ public class ControlWindow extends JPanel{
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         // create a name array for the sliders
         String[] names = {"tendon", "ankle"};
-        int[] startingValues = {90, 60};
+        int[] startingValues = {60, 90};
         // setting up the sliders
         for(int i=0; i<sliders.length; i++){
             sliders[i] = new JSlider(0, 180, startingValues[i]);

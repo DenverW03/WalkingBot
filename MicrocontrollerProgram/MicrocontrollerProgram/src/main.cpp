@@ -7,7 +7,7 @@ Servo backRight1, backRight2;
 void moveServo(std::string name, int angle);
 
 void setup() {
-  backRight1.attach(23);
+  backRight1.attach(21);
   backRight2.attach(22);
   Serial.begin(9600);
   // starting positions
